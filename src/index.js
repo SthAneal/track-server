@@ -1,10 +1,12 @@
 const express = require('express');
 require('./db/mongoose');
-const route = require('./routes/User');
+const userRoute = require('./routes/User');
+const trackRoute = require('./routes/Track');
 
 const app = express();
 app.use(express.json());
-app.use(route);
+app.use(userRoute);
+app.use(trackRoute);
 
 const {PORT} = require('../config');
 

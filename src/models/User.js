@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true,
-        validation(value){
+        validate(value){
             if(value.length<2){
                 throw new Error('Name must consist at least 2 characters');
             }
@@ -54,6 +54,17 @@ const userSchema = new mongoose.Schema({
         }
     }]
 });
+/* 
+    to create a virtual User's field related to the Task
+*/
+userSchema.virtual('tracks',{
+    ref:'Track',
+    localField: '_id',
+    foreignField: 'userId'
+});
+
+
+
 
 /* 
     to cerate the authentication function.
