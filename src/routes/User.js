@@ -3,6 +3,7 @@ const route = express.Router();
 const User = require('../models/User');
 const auth = require('../middleware/auth');
 
+// create user
 route.post('/users', async (req, res)=>{
     const user = new User(req.body);
     try {
@@ -14,6 +15,7 @@ route.post('/users', async (req, res)=>{
     }
 });
 
+// user login
 route.post('/users/login', async (req, res)=>{
     try {
         const user = await User.findByCredentials(req.body.email, req.body.password);
@@ -24,6 +26,7 @@ route.post('/users/login', async (req, res)=>{
     }
 });
 
+// user logout
 route.post('/users/logout', auth, async (req, res)=>{
    try {
        req.user.tokens = req.user.tokens.filter((token)=>{
@@ -36,8 +39,8 @@ route.post('/users/logout', auth, async (req, res)=>{
    }
 });
 
-route.get('/users', auth, async (req, res)=>{
-    
+// user profile
+route.get('/users/me', auth, async (req, res)=>{
     res.send(req.user);
 });
 
