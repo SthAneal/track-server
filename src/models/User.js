@@ -92,6 +92,19 @@ userSchema.pre('save', async function(next){
     next();
 });
 
+/* 
+    to hide the credential informations while express is sending the stringify value.
+ */
+    userSchema.methods.toJSON = function(){
+        const user = this;
+        const userObject = user.toObject();
+
+        delete userObject.tokens;
+        delete userObject.password;
+
+        return userObject;
+    }
+
 
 const User = mongoose.model('User', userSchema);
 
